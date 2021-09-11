@@ -1,71 +1,92 @@
 #Nombre: Nicole Estefania Garcia Chiquito
 #3er semestre de Software A1
 # 20 de Agosto del 2021
+import os
 class Matriz:
-    def __init__(self,matriz,fila,columna):
+    def __init__(self,matriz,fila,col):
         self.matriz = matriz
         self.fila = fila
-        self.columna = columna
+        self.col = col
         
-    def ingresar(self,dato):
-        self.matriz = []
-        for fila in range (self.fila):
-            columnas= []
-            for col in range(self.columna):
-                valor= input("Fila [{}] Col [{}]:".format(fila,col))
+    def ingresar(self):
+        self.matriz=[]
+        for fila in range(self.fila):
+            columnas=[]
+            for col in range(self.col):
+                valor = input("Fila[{}] Col[{}]:".format(fila,col))
                 columnas.append(valor)
             self.matriz.append(columnas)
     
-    def presentar(self):
+    
+    def presentar (self):
         for fila in range(len(self.matriz)):
-            # print(numeros[fila])
-            # print(len(self.matriz[fila]))
-            for col in range (len(self.matriz[fila])):
-                print("[{}]".format(self.matriz[fila][col]), end = " ")
+            for col in range(len(self.matriz[fila])):
+                # print(columna[col],end=" ")
+                print("[{}]".format(self.matriz[fila][col]),end=" ")
             print()
-            
+
+
+
     def buscar(self,valor):
-       pass
+        enc= False
+        for pos1,ele1 in enumerate(self.matriz):
+            for pos,ele in enumerate(ele1):
+                    if ele==str(valor):
+                        enc=True
+                        buscar=(pos1,"columna",pos)
+                        break
+        if enc==True:
+            return buscar
+        else:
+            return -1
         
         
-    def sumar(self,matriz1, matriz2):
-        pass
+        
+    def buscar2(self,valor):
+        enc={}
+        band=True
+        fila=0
+        while fila < len(self.matriz)and band:
+            col=0
+            while col< len(self.matriz[fila])and band:
+                if self.matriz[fila][col]==str(valor):
+                    enc["fila"]=fila
+                    enc["col"]=col
+                    band=False
+                else: col+=1
+            fila+=1
+        return enc
+                       
+    def sumar(self,mat):
+        matrizSuma=[]
+        for fila in range(self.fila):
+            columnas=[]
+            for col in range(self.col):
+                valor = self.matriz[fila][col] + mat[fila][col]
+                columnas.append(valor)
+            self.matriz.append(columnas)
+        return matrizSuma
         
         
-    
-            
-        
-        
-        # for fila in range(len(self.matriz)):
-        #     if fila == valor:
-        #         return self.matriz[fila]
-        # for col in range (len(self.matriz[fila])):
-        #     if col == valor:
-        #         return self.matriz[col]
-        
-        # for pos,ele in enumerate(self.matriz):
-        #     for pos, ele in enumerate(self.matriz[ele]):
-        #         if ele == valor: 
+     
+# numeros=[[10,20,30],[60,80,90],[25,35,55]]
 
-        
-    
-
-
-numeros = [[10,20],[60,80]]
-numeros2 = [[10,20],[60,80]]
-
-# col = numeros[0]
-# print(col[1])
+numero=[]
+mat = Matriz(numero,2,2)
+numeros1=[]
+mat1 = Matriz(numeros1,2,2)
 # print(numeros[0],numeros[0][1])
-# print(col,col[1])
-# print(col[0])
-# print(numeros[1][0])
-# print(numeros[2][0])
-
-# for i in numeros:
-#     print(i)
-
-mat=Matriz(numeros,2,2)
-
-mat.sumar(mat)
-# mat.presentar()
+mat.ingresar()
+mat1.ingresar()
+mat.presentar()
+print()
+mat1.presentar()
+# res=mat.buscar("80")
+# if res==-1:print("No existe valor en la matriz")
+# else:print("su Fila es: {}".format(res))
+# print()
+# res=mat.buscar2("josue")
+# if res:print("El valor se encuentra en las siguientes coordenadas: {}".format(res))
+# else:print("No existe valor en la matriz")
+# mat.ingresar()
+print(mat.sumar(mat1.matriz))
